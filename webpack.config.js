@@ -4,13 +4,16 @@ var webpack = require('webpack')
 module.exports = {
   devtool: 'eval-source-map',
   entry: {
-    main: [
-      './src/main.js'
-    ]
+    testEntry: './src/test.js',
+    mainEntry: './src/main.js'
+  },
+  devServer: {
+    inline: true,
+    port: 8000
   },
   output: {
-    path: path.resolve(__dirname, 'public/'),
-    filename: 'bundle.js'
+    path:'./public',
+    filename: '[name].js'
   },
   module: {
     loaders: [
@@ -18,6 +21,11 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel'
+      },
+      {
+        test: /\.scss$/,
+        include: path.join(__dirname, 'src'),
+        loader: 'style!css!sass!'
       }
     ]
   }
